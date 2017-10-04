@@ -1,0 +1,157 @@
+{
+  "Service" : "ec2",
+  "Description" : "Definitions for Team's monitors of the given Service",
+  "zumocoTemplateFormatVersion" : "2017-07-17",
+
+  "DiscoverInstance" : "describe_instances", 
+  "InstanceFilters" : "Filters=[{'Name':'tag:Name', 'Values':['*']},{'Name':'instance-state-name', 'Values':['running']}]",
+  "InstanceIterator1" : "Reservations",
+  "InstanceIterator2" : "Instances",
+
+  "AlarmDestinations" : {
+      "info" : null,
+      "warning" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat",
+      "critical" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat"
+  },  
+
+  "CreateServiceDashboard" : true,
+
+  "AlarmDimName" : "InstanceId",
+  "AlarmPrefix" : "zumoco",
+  "Alarms" : {
+      "CPUUtilization": {
+          "AlarmDescription" : "Alarm for EC2 CPUUtilization Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "Statistic" : "Average",
+          "MetricName" : "CPUUtilization",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 60
+      },
+      "DiskReadOps": {
+          "AlarmDescription" : "Alarm for EC2 DiskReadOps Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "DiskReadOps",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 90
+      },
+      "DiskWriteOps": {
+          "AlarmDescription" : "Alarm for EC2 DiskWriteOps Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "DiskWriteOps",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 90
+      },
+      "DiskReadBytes": {
+          "AlarmDescription" : "Alarm for EC2 DiskReadBytes Metric",
+	  "AlarmAction" : "warning",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "DiskReadBytes",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 3000000000
+      },
+      "DiskWriteBytes": {
+          "AlarmDescription" : "Alarm for EC2 DiskWriteBytes Metric",
+	  "AlarmAction" : "warning",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "DiskWriteBytes",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 1000000000
+      },
+      "NetworkIn": {
+          "AlarmDescription" : "Alarm for EC2 NetworkIn Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "NetworkIn",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 450000000
+      },
+      "NetworkOut": {
+          "AlarmDescription" : "Alarm for EC2 NetworkOut Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "NetworkOut",
+          "Statistic" : "Average",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 450000000
+      },
+      "StatusCheckFailed": {
+          "AlarmDescription" : "Alarm for EC2 StatusCheckFailed Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "StatusCheckFailed",
+          "Statistic" : "Maximum",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 1
+      }
+  },
+  "Charts" : {
+      "StatusCheckFailed": {
+          "ch_type" : "metric",
+          "is_alarm" : true,
+          "metric_list" : ["StatusCheckFailed"],
+          "period" : 300,
+          "view" : "singleValue",
+          "stacked" : false
+      },
+      "CPU": {
+          "ch_type" : "metric",
+          "is_alarm" : true,
+          "metric_list" : ["CPUUtilization"],
+          "period" : 300,
+          "view" : "timeSeries",
+          "stacked" : false
+      },
+      "Network": {
+          "ch_type" : "metric",
+          "is_alarm" : false,
+          "avail" : "['Placement']['AvailabilityZone']",
+          "metric_list" : [["AWS/EC2", "NetworkIn", "InstanceId"], ["AWS/EC2", "NetworkOut", "InstanceId"]],
+          "period" : 300,
+          "stat" : "Average",
+          "stacked" : true,
+          "view" : "timeSeries"
+      },
+      "Disk": {
+          "ch_type" : "metric",
+          "is_alarm" : false,
+          "avail" : "['Placement']['AvailabilityZone']",
+          "metric_list" : [["AWS/EC2", "DiskReadBytes", "InstanceId"], ["AWS/EC2", "DiskWriteBytes", "InstanceId"]],
+          "period" : 300,
+          "stat" : "Average",
+          "stacked" : true,
+          "view" : "timeSeries"
+      }
+  } 
+}

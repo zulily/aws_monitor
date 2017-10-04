@@ -1,0 +1,65 @@
+{
+  "Service" : "autoscaling",
+  "Description" : "Definitions for Team's monitors of the given Service",
+  "zumocoTemplateFormatVersion" : "2017-07-17",
+
+  "DiscoverInstance" : "describe_auto_scaling_groups", 
+  "InstanceFilters" : null,
+  "InstanceIterator1" : "AutoScalingGroups",
+  "InstanceIterator2" : null,
+
+  "AlarmDestinations" : {
+      "info" : null,
+      "warning" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat",
+      "critical" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat"
+  },  
+
+  "CreateServiceDashboard" : true,
+
+  "AlarmDimName" : "AutoScalingGroupName",
+  "AlarmPrefix" : "zumoco",
+  "Alarms" : {
+      "CPUUtilization": {
+          "AlarmDescription" : "Alarm for EC2 CPUUtilization Autoscaling Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanThreshold",
+          "EvaluationPeriods" : 2,
+          "Statistic" : "Average",
+          "MetricName" : "CPUUtilization",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 60
+      },
+      "StatusCheckFailed": {
+          "AlarmDescription" : "Alarm for EC2 StatusCheckFailed Autoscaling Metric",
+	  "AlarmAction" : "critical",
+          "send_ok" : true,
+          "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
+          "EvaluationPeriods" : 2,
+          "MetricName": "StatusCheckFailed",
+          "Statistic" : "Maximum",
+          "Namespace" : "AWS/EC2",
+          "Period" : 300,
+          "Threshold" : 1
+      }
+  },
+  "Charts" : {
+      "StatusCheckFailed": {
+          "ch_type" : "metric",
+          "is_alarm" : true,
+          "metric_list" : ["StatusCheckFailed"],
+          "period" : 300,
+          "view" : "singleValue",
+          "stacked" : false
+      },
+      "CPU": {
+          "ch_type" : "metric",
+          "is_alarm" : true,
+          "metric_list" : ["CPUUtilization"],
+          "period" : 300,
+          "view" : "timeSeries",
+          "stacked" : false
+      }
+  } 
+}

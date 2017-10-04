@@ -1,0 +1,15 @@
+{
+  "Team" : "TeamFoo",
+  "Description" : "Definitions of services for TeamFoo",
+  "zumocoTeamTemplateFormatVersion" : "2017-07-17",
+
+  "Debug" : false,
+
+  "CreateTeamDashboard" : true,
+
+  "MonitorDefs" : [
+         "ec2_TeamFoo.json",
+	 "as_TeamFoo.json",
+	 "rds_TeamFoo.json"
+  ]
+}
