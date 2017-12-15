@@ -4,6 +4,9 @@
     {
       "Effect": "Allow",
       "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
         "cloudwatch:Describe*",
         "cloudwatch:Delete*",
         "cloudwatch:Put*",

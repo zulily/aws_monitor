@@ -113,7 +113,7 @@ def upload_lambda_function():
                                                Runtime='python2.7',
                                                Role=role.arn,
                                                Handler='zumoco.main',
-                                               Timeout=30,
+                                               Timeout=300,
                                                Description="Discover, add cloudwatch alerts",
                                                MemorySize=128,
                                                VpcConfig=vpc_config)

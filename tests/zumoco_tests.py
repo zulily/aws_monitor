@@ -9,6 +9,8 @@ import unittest
 
 import boto3
 
+from pprint import pprint
+
 # Local imports
 import zumoco
 
@@ -25,7 +27,12 @@ class TestZumoco(unittest.TestCase):
         # Assume instances aren't named.
         # Add {'Name':'tag:Name', 'Values':['*']}, to Filters to get named instances.
         return {
-            'InstanceFilters' : "Filters=[{'Name':'instance-state-name', 'Values':['running']}]",
+            'InstanceFilters' : [
+                    {
+                            'Name':'instance-state-name', 
+                            'Values':['running']
+                    }
+            ],
             'DiscoverInstance' : 'describe_instances',
             'Service' : 'ec2',
             'InstanceIterator1' : 'Reservations',
@@ -108,8 +115,8 @@ class TestZumoco(unittest.TestCase):
             },
             'AlarmDestinations' : {
                 'info' : None,
-                'warning' : 'arn:aws:sns:REPLACE_REGION:REPLACE_ACCT:TeamFoo_warning_hipchat',
-                'critical' : 'arn:aws:sns:REPLACE_REGION:REPLACE_ACCT:TeamFoo_warning_hipchat'
+                'warning' : 'arn:aws:sns:us-east-1:445473265646:infra_warning_hipchat',
+                'critical' : 'arn:aws:sns:us-east-1:445473265646:infra_warning_hipchat'
             },
             'Charts' : {
                 'StatusCheckFailed': {

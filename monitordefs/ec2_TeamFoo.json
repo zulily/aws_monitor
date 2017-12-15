@@ -4,7 +4,16 @@
   "zumocoTemplateFormatVersion" : "2017-07-17",
 
   "DiscoverInstance" : "describe_instances", 
-  "InstanceFilters" : "Filters=[{'Name':'tag:Name', 'Values':['*']},{'Name':'instance-state-name', 'Values':['running']}]",
+  "InstanceFilters" : [
+      {
+          "Name": "tag:Name",
+          "Values":["*"]
+      },
+      {
+          "Name":"instance-state-name",
+          "Values":["running"]
+      }
+  ], 
   "InstanceIterator1" : "Reservations",
   "InstanceIterator2" : "Instances",
 
@@ -22,7 +31,7 @@
       "CPUUtilization": {
           "AlarmDescription" : "Alarm for EC2 CPUUtilization Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "Statistic" : "Average",
@@ -34,7 +43,7 @@
       "DiskReadOps": {
           "AlarmDescription" : "Alarm for EC2 DiskReadOps Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskReadOps",
@@ -46,7 +55,7 @@
       "DiskWriteOps": {
           "AlarmDescription" : "Alarm for EC2 DiskWriteOps Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskWriteOps",
@@ -58,7 +67,7 @@
       "DiskReadBytes": {
           "AlarmDescription" : "Alarm for EC2 DiskReadBytes Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskReadBytes",
@@ -70,7 +79,7 @@
       "DiskWriteBytes": {
           "AlarmDescription" : "Alarm for EC2 DiskWriteBytes Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskWriteBytes",
@@ -82,7 +91,7 @@
       "NetworkIn": {
           "AlarmDescription" : "Alarm for EC2 NetworkIn Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "NetworkIn",
@@ -94,7 +103,7 @@
       "NetworkOut": {
           "AlarmDescription" : "Alarm for EC2 NetworkOut Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "NetworkOut",
@@ -106,7 +115,7 @@
       "StatusCheckFailed": {
           "AlarmDescription" : "Alarm for EC2 StatusCheckFailed Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "StatusCheckFailed",

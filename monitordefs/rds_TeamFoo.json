@@ -22,7 +22,7 @@
       "CPUUtilization": {
           "AlarmDescription" : "Alarm for RDS CPUUtilization Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "Statistic" : "Average",
@@ -34,7 +34,7 @@
       "DiskReadLatency": {
           "AlarmDescription" : "Alarm for RDS DiskReadLatency Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskReadLatency",
@@ -46,7 +46,7 @@
       "DiskWriteLatency": {
           "AlarmDescription" : "Alarm for RDS DiskWriteLatency Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DiskWriteLatency",
@@ -58,7 +58,7 @@
       "DatabaseConnections": {
           "AlarmDescription" : "Alarm for RDS DatabaseConnections Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "DatabaseConnections",
@@ -70,7 +70,7 @@
       "FreeStorageSpaceLow": {
           "AlarmDescription" : "Warning Alarm for RDS FreeStorageSpace Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "LessThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "FreeStorageSpace",
@@ -82,7 +82,7 @@
       "FreeStorageSpaceCritical": {
           "AlarmDescription" : "Critical Alarm for RDS FreeStorageSpace Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "LessThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "FreeStorageSpace",
@@ -94,7 +94,7 @@
       "NetworkReceiveThroughput": {
           "AlarmDescription" : "Alarm for RDS NetworkReceiveThroughput Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "NetworkReceiveThroughput",
@@ -106,7 +106,7 @@
       "NetworkTransmitThroughput": {
           "AlarmDescription" : "Alarm for RDS NetworkTransmitThroughput Metric",
 	  "AlarmAction" : "warning",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "NetworkTransmitThroughput",
@@ -118,7 +118,7 @@
       "ReplicaLag": {
           "AlarmDescription" : "Alarm for RDS ReplicaLag Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "ReplicaLag",

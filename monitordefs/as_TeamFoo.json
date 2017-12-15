@@ -22,7 +22,7 @@
       "CPUUtilization": {
           "AlarmDescription" : "Alarm for EC2 CPUUtilization Autoscaling Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanThreshold",
           "EvaluationPeriods" : 2,
           "Statistic" : "Average",
@@ -34,7 +34,7 @@
       "StatusCheckFailed": {
           "AlarmDescription" : "Alarm for EC2 StatusCheckFailed Autoscaling Metric",
 	  "AlarmAction" : "critical",
-          "send_ok" : true,
+          "send_ok" : false,
           "ComparisonOperator" : "GreaterThanOrEqualToThreshold",
           "EvaluationPeriods" : 2,
           "MetricName": "StatusCheckFailed",

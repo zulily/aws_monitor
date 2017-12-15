@@ -116,9 +116,13 @@ def get_service_alarms(prefix, service):
     """
     Get all alarms for a given AlarmPrefix + service
     """
+    alarms = []
     alarmprefix = prefix + '_' + service
-    alarms = CW_C.describe_alarms(AlarmNamePrefix=alarmprefix)
-    return alarms['MetricAlarms']
+    paginator = CW_C.get_paginator('describe_alarms')
+    for response in paginator.paginate(AlarmNamePrefix=alarmprefix):
+        alarms.extend(response['MetricAlarms'])
+        pass
+    return alarms
 
 def delete_service_alarms(alarm_list):
     """
@@ -127,7 +131,12 @@ def delete_service_alarms(alarm_list):
     alarmnames = []
     for alarm in alarm_list:
         alarmnames.append(alarm['AlarmName'])
-    CW_C.delete_alarms(AlarmNames=alarmnames)
+        # limit of 100 for delete
+        if len(alarmnames) > 90:
+            CW_C.delete_alarms(AlarmNames=alarmnames)
+            alarmnames = []
+    if alarmnames:
+        CW_C.delete_alarms(AlarmNames=alarmnames)
 
 def format_widget_props(inst_name, cht_name, chart, inst, alarms):
     """
@@ -158,7 +167,6 @@ def format_widget_props(inst_name, cht_name, chart, inst, alarms):
     props['view'] = chart['view']
     props['stacked'] = chart['stacked']
     props['title'] = inst_name + ' ' + cht_name
-
     return props
 
 def build_dashboard_widgets(svc_inst, alarms, svc_info):
@@ -235,28 +243,43 @@ def delete_dashboards(dashboard_list):
     if dashboardnames:
         CW_C.delete_dashboards(DashboardNames=dashboardnames)
 
+def parse_service_response(response, inst_iter1, inst_iter2):
+    """
+    Handle paginated response from service
+    """
+    inst = []
+    if inst_iter2:
+        # Two levels of lists
+        for tmp in response[inst_iter1]:
+            for tmp2 in tmp[inst_iter2]:
+                inst.append(tmp2)
+    elif inst_iter1:
+        for tmp in response[inst_iter1]:
+            inst.append(tmp)
+    else:
+        inst = response
+        pass
+    return inst
+
+
 def get_service_instances(svc_client, svc_info):
     """
     Retrieve instances for the given service,
     Flattening AWS structure if necessary
     """
     instances = []
-    cmd = 'svc_client.' + svc_info['DiscoverInstance'] + '('
+    responses = []
+    paginator = svc_client.get_paginator(svc_info['DiscoverInstance'])
     if svc_info['InstanceFilters']:
-        cmd += svc_info['InstanceFilters']
-    cmd += ')'
-    response = eval(cmd)
-    if svc_info['InstanceIterator2']:
-        # Two levels of lists
-        for tmp in response[svc_info['InstanceIterator1']]:
-            for tmp2 in tmp[svc_info['InstanceIterator2']]:
-                instances.append(tmp2)
-    elif svc_info['InstanceIterator1']:
-        for tmp in response[svc_info['InstanceIterator1']]:
-            instances.append(tmp)
+        for response in paginator.paginate(Filters=svc_info['InstanceFilters']):
+            instances.extend(parse_service_response(response, svc_info['InstanceIterator1'],
+                                                    svc_info['InstanceIterator2']))
     else:
-        instances = response
-    return instances
+        for response in paginator.paginate():
+            instances.extend(parse_service_response(response, svc_info['InstanceIterator1'],
+                                                    svc_info['InstanceIterator2']))
+    return instances 
+
 
 
 def main(event, context):
