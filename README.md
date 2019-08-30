@@ -6,6 +6,7 @@ Keeping track of your instances in AWS is quite a task.  This tool (zumoco, for 
 There are a few things you need to do to set this up for yourself (see details below):  
  
   - Create the AWS Simple Notification Service (SNS) topics/subscriptions for notifying teams based on alert severity.
+  - Create the AWS S3 bucket to store the instance history, per service.
   - Customize the JSON templates in the `monitordefs` directory to match the services you want to monitor.
   - Package and deploy the lambda function to AWS.
 
@@ -17,16 +18,22 @@ AWS uses SNS to handle notifications of AWS CloudWatch alerts. zumoco uses the A
  - Create a hipchat integration by creating another AWS Lambda function, as provided here: [link](https://github.com/zulily/aws_monitor/tree/master/sns_integrations).  Note: the `tests/zumoco_test.py` test file requires an SNS topic to create alarms; replace the appropriate `AlarmDestinations` values with your SNS topic in order to run the tests.
  - Create an email integration, using the AWS process here: [link](http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/US_SetupSNS.html)
 
+### Create AWS S3 Bucket
+This lambda function uses an S3 bucket to store the history of instances, in order to only add/delete alarms for a specific instance. Create an S3 bucket with prefix named to match the value used in the `s3_access.json` file.
+
 ### Customize the JSON templates
 
 * Edit `team.json` to modify:
 
  - `Team` : Set to your team's name.
  - `CreateTeamDashboard` : Set to false if you don't want a dashboard set with all metric alarms.
+ - `Bucket` : Set to your S3 bucket name.
  - `MonitorDefs` list : Change to reference only the services' files on which you plan to alert.
 
 * Copy each service you want to monitor (e.g., `ec2_TeamFoo.json`) to a new filename (referencing it in the `team.json` `MonitorDefs` list.)  In the new file, modify:
 
+ - `S3Suffix` : Make this unique per service file (so if you have two ec2 service files, make sure this value is changed).
+ - `ReportARN` : Set this to the SNS ARN used for receiving the service report, generated for each service on each run giving total/added/deleted service instances.
  - `InstanceFilters` : If your instances have names, add `tag:Name` key's values as you likely want to restrict monitoring (and dashboard generation) to a subset of instances (less than 1k total, per AWS API docs).  (If you do this, you also should to change the `AlarmPrefix` to keep dashboards, etc., separate.) Example:
 	 - `"Filters=[{'Name':'tag:Name', 'Values':['hadoop*']},{'Name':'instance-state-name', 'Values':['running']}]"`
  - `AlarmDestinations` : Modify to include all SNS topic/subscription alarm destinations you created in the previous section.
@@ -43,6 +50,9 @@ AWS uses SNS to handle notifications of AWS CloudWatch alerts. zumoco uses the A
 		- `avail` : String used to select availability zone in instance JSON (varies by service instance).
 		- `metric_list` : List of metrics or alarm to be charted, following [charts](http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Dashboard-Body-Structure.html) definition.
 		- `view` : Note: `singleValue` charts are half the width of `timeSeries` charts.
+	- `TagsKey` section makes charts/alarms easier to read by adding/substituting tags for instance id:
+		- `FriendlyName` : Set to tag key used as name for the given instance, or `null` to only use instance id.
+		- `EnsureUniqueName` : Set to `true` to append instance id to FriendlyName to ensure uniqueness. This is useful for EC2 when you are using autoscaling groups that have the same `Name` value, etc.
 
 The packaging step will deploy everything in the monitordefs directory to the Lambda zip file (so you may wish to remove templates/files you don't use).
 	

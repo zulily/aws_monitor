@@ -1,0 +1,93 @@
+[{
+    "Monitoring": {
+        "State": "enabled"
+    },
+    "PublicDnsName": "",
+    "State": {
+        "Code": 16,
+        "Name": "running"
+    },
+    "EbsOptimized": false,
+    "LaunchTime": "2018-03-28 20:38:54+00:00",
+    "PrivateIpAddress": "10.20.30.41",
+    "ProductCodes": [],
+    "VpcId": "vpc-12345678",
+    "StateTransitionReason": "",
+    "InstanceId": "i-123456789abcdefa",
+    "ImageId": "ami-1234567a",
+    "PrivateDnsName": "ip-10-20-30-41.ec2.internal",
+    "KeyName": "some.other.long.key.name",
+    "SecurityGroups": [{
+        "GroupName": "another.long.name",
+        "GroupId": "sg-1234567a"
+    }],
+    "ClientToken": "guid_subnet-id",
+    "SubnetId": "subnet-1234567a",
+    "InstanceType": "t2.small",
+    "NetworkInterfaces": [{
+        "Status": "in-use",
+        "MacAddress": "12:34:56:78:ab:ca",
+        "SourceDestCheck": true,
+        "VpcId": "vpc-12345678",
+        "Description": "",
+        "NetworkInterfaceId": "eni-1234567a",
+        "PrivateIpAddresses": [{
+            "Primary": true,
+            "PrivateIpAddress": "10.20.30.41"
+        }],
+        "SubnetId": "subnet-1234567a",
+        "Attachment": {
+            "Status": "attached",
+            "DeviceIndex": 0,
+            "DeleteOnTermination": true,
+            "AttachmentId": "eni-attach-1234567a",
+            "AttachTime": "2018-03-28 20:38:54+00:00"
+        },
+        "Groups": [{
+            "GroupName": "another.long.name",
+            "GroupId": "sg-1234567a"
+        }],
+        "Ipv6Addresses": [],
+        "OwnerId": "123456781234",
+        "PrivateIpAddress": "10.20.30.41"
+    }],
+    "SourceDestCheck": true,
+    "Placement": {
+        "Tenancy": "default",
+        "GroupName": "",
+        "AvailabilityZone": "us-east-1c"
+    },
+    "Hypervisor": "xen",
+    "myname": "another.long.name_i-123456789abcdefa",
+    "BlockDeviceMappings": [{
+        "DeviceName": "/dev/sda1",
+        "Ebs": {
+            "Status": "attached",
+            "DeleteOnTermination": true,
+            "VolumeId": "vol-12345678123456789",
+            "AttachTime": "2018-03-28 20:38:55+00:00"
+        }
+    }],
+    "Architecture": "x86_64",
+    "RootDeviceType": "ebs",
+    "IamInstanceProfile": {
+        "Id": "ANOTHERLONGKEY123456",
+        "Arn": "arn:aws:iam::123456781234:instance-profile/another.long.name"
+    },
+    "RootDeviceName": "/dev/sda1",
+    "VirtualizationType": "hvm",
+    "Tags": [{
+        "Value": "another.long.name",
+        "Key": "Name"
+    }, {
+        "Value": "123456781234",
+        "Key": "Project-ID"
+    }, {
+        "Value": "test",
+        "Key": "Team"
+    }, {
+        "Value": "another.long.name",
+        "Key": "aws:autoscaling:groupName"
+    }],
+    "AmiLaunchIndex": 0
+}]

@@ -1,15 +1,17 @@
 {
-  "Team" : "TeamFoo",
-  "Description" : "Definitions of services for TeamFoo",
-  "zumocoTeamTemplateFormatVersion" : "2017-07-17",
+    "Team": "TeamFoo",
+    "Description": "Definitions of services for TeamFoo",
+    "zumocoTeamTemplateFormatVersion": "2019-07-17",
+    "Bucket": "REPLACE_S3_BUCKET",
 
-  "Debug" : false,
+    "Debug": false,
+    "SendStatusUpdates": true,
 
-  "CreateTeamDashboard" : true,
+    "CreateTeamDashboard": false,
 
-  "MonitorDefs" : [
-         "ec2_TeamFoo.json",
-	 "as_TeamFoo.json",
-	 "rds_TeamFoo.json"
-  ]
+    "MonitorDefs": [
+        "ec2_TeamFoo.json",
+        "as_TeamFoo.json",
+        "rds_TeamFoo.json"
+    ]
 }

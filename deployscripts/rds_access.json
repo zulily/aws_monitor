@@ -1,13 +1,12 @@
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "rds:DescribeDBClusters",
-        "rds:DescribeDBInstances"
-      ],
-      "Resource": "*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": [
+            "rds:DescribeDBClusters",
+            "rds:DescribeDBInstances",
+            "rds:ListTagsForResource"
+        ],
+        "Resource": "*"
+    }]
 }

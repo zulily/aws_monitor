@@ -4,7 +4,7 @@ setup_lambda script
    Used to deploy zumoco to AWS Lambda, creating roles needed and
    pushing the script to AWS Lambda.
 
-   Copyright 2017 zulily, Inc.
+   Copyright 2019 zulily, Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,7 +47,8 @@ def setup_iam_role():
         else:
             raise err
 
-    for pol in ['ec2_access', 'sns_access', 'cloudwatch_access', 'rds_access', 'as_access']:
+    for pol in ['ec2_access', 'sns_access', 'cloudwatch_access', 'rds_access',
+                'as_access', 's3_access']:
         with open('{}/{}.json'.format(BASE_DIR, pol), 'r') as policy_file:
             policy = policy_file.read()
             IAM_C.put_role_policy(RoleName='aws_monitor',

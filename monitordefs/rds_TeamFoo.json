@@ -1,177 +1,190 @@
 {
-  "Service" : "rds",
-  "Description" : "Definitions for Team's monitors of the given Service",
-  "zumocoTemplateFormatVersion" : "2017-07-17",
+    "Service": "rds",
+    "Description": "Definitions for Team's monitors of the given Service",
+    "zumocoTemplateFormatVersion": "2019-07-17",
+    "S3Suffix": "test_inst",
+    "ReportARN": "arn:aws:sns:us-east-1:REPLACE_ACCOUNT:REPLACE_TOPIC",
 
-  "DiscoverInstance" : "describe_db_instances", 
-  "InstanceFilters" : null,
-  "InstanceIterator1" : "DBInstances",
-  "InstanceIterator2" : null,
+    "DiscoverInstance": "describe_db_instances",
+    "InstanceFilters": null,
+    "InstanceIterator1": "DBInstances",
+    "InstanceIterator2": null,
 
-  "AlarmDestinations" : {
-      "info" : null,
-      "warning" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat",
-      "critical" : "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:TeamFoo_warning_hipchat"
-  },  
+    "AlarmDestinations": {
+        "info": null,
+        "warning": "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:REPLACE_TOPIC",
+        "critical": "arn:aws:sns:REPLACE_REGION:REPLACE_ACCOUNT:REPLACE_TOPIC"
+    },
 
-  "CreateServiceDashboard" : true,
+    "CreateServiceDashboard": true,
 
-  "AlarmDimName" : "DBInstanceIdentifier",
-  "AlarmPrefix" : "zumoco",
-  "Alarms" : {
-      "CPUUtilization": {
-          "AlarmDescription" : "Alarm for RDS CPUUtilization Metric",
-	  "AlarmAction" : "critical",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "Statistic" : "Average",
-          "MetricName" : "CPUUtilization",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 60
-      },
-      "DiskReadLatency": {
-          "AlarmDescription" : "Alarm for RDS DiskReadLatency Metric",
-	  "AlarmAction" : "warning",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "DiskReadLatency",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 1
-      },
-      "DiskWriteLatency": {
-          "AlarmDescription" : "Alarm for RDS DiskWriteLatency Metric",
-	  "AlarmAction" : "warning",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "DiskWriteLatency",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 1
-      },
-      "DatabaseConnections": {
-          "AlarmDescription" : "Alarm for RDS DatabaseConnections Metric",
-	  "AlarmAction" : "critical",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "DatabaseConnections",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 50
-      },
-      "FreeStorageSpaceLow": {
-          "AlarmDescription" : "Warning Alarm for RDS FreeStorageSpace Metric",
-	  "AlarmAction" : "warning",
-          "send_ok" : false,
-          "ComparisonOperator" : "LessThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "FreeStorageSpace",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 200000000
-      },
-      "FreeStorageSpaceCritical": {
-          "AlarmDescription" : "Critical Alarm for RDS FreeStorageSpace Metric",
-	  "AlarmAction" : "critical",
-          "send_ok" : false,
-          "ComparisonOperator" : "LessThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "FreeStorageSpace",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 100000000
-      },
-      "NetworkReceiveThroughput": {
-          "AlarmDescription" : "Alarm for RDS NetworkReceiveThroughput Metric",
-	  "AlarmAction" : "warning",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "NetworkReceiveThroughput",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 450000000
-      },
-      "NetworkTransmitThroughput": {
-          "AlarmDescription" : "Alarm for RDS NetworkTransmitThroughput Metric",
-	  "AlarmAction" : "warning",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "NetworkTransmitThroughput",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 450000000
-      },
-      "ReplicaLag": {
-          "AlarmDescription" : "Alarm for RDS ReplicaLag Metric",
-	  "AlarmAction" : "critical",
-          "send_ok" : false,
-          "ComparisonOperator" : "GreaterThanThreshold",
-          "EvaluationPeriods" : 2,
-          "MetricName": "ReplicaLag",
-          "Statistic" : "Average",
-          "Namespace" : "AWS/RDS",
-          "Period" : 300,
-          "Threshold" : 300
-      }
-  },
-  "Charts" : {
-      "StatusCheckFailed": {
-          "ch_type" : "metric",
-          "is_alarm" : true,
-          "metric_list" : ["ReplicaLag"],
-          "period" : 300,
-          "view" : "singleValue",
-          "stacked" : false
-      },
-      "CPU": {
-          "ch_type" : "metric",
-          "is_alarm" : true,
-          "metric_list" : ["CPUUtilization"],
-          "period" : 300,
-          "view" : "timeSeries",
-          "stacked" : false
-      },
-      "DiskFree": {
-          "ch_type" : "metric",
-          "is_alarm" : true,
-          "metric_list" : ["FreeStorageSpace"],
-          "period" : 300,
-          "view" : "timeSeries",
-          "stacked" : false
-      },
-      "Network": {
-          "ch_type" : "metric",
-          "is_alarm" : false,
-          "avail" : "['AvailabilityZone']",
-          "metric_list" : [["AWS/RDS", "NetworkReceiveThroughput", "InstanceId"], ["AWS/RDS", "NetworkTransmitThroughput", "InstanceId"]],
-          "period" : 300,
-          "stat" : "Average",
-          "stacked" : true,
-          "view" : "timeSeries"
-      },
-      "Disk": {
-          "ch_type" : "metric",
-          "is_alarm" : false,
-          "avail" : "['AvailabilityZone']",
-          "metric_list" : [["AWS/EC2", "DiskReadLatency", "InstanceId"], ["AWS/EC2", "DiskWriteLatency", "InstanceId"]],
-          "period" : 300,
-          "stat" : "Average",
-          "stacked" : true,
-          "view" : "timeSeries"
-      }
-  }
+    "AlarmDimName": "DBInstanceIdentifier",
+    "AlarmPrefix": "zumoco",
+    "Alarms": {
+        "CPUUtilization": {
+            "AlarmDescription": "Alarm for RDS CPUUtilization Metric",
+            "AlarmAction": "critical",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "Statistic": "Average",
+            "MetricName": "CPUUtilization",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 60
+        },
+        "DiskReadLatency": {
+            "AlarmDescription": "Alarm for RDS DiskReadLatency Metric",
+            "AlarmAction": "warning",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "DiskReadLatency",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 1
+        },
+        "DiskWriteLatency": {
+            "AlarmDescription": "Alarm for RDS DiskWriteLatency Metric",
+            "AlarmAction": "warning",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "DiskWriteLatency",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 1
+        },
+        "DatabaseConnections": {
+            "AlarmDescription": "Alarm for RDS DatabaseConnections Metric",
+            "AlarmAction": "critical",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "DatabaseConnections",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 50
+        },
+        "FreeStorageSpaceLow": {
+            "AlarmDescription": "Warning Alarm for RDS FreeStorageSpace Metric",
+            "AlarmAction": "warning",
+            "send_ok": false,
+            "ComparisonOperator": "LessThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "FreeStorageSpace",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 200000000
+        },
+        "FreeStorageSpaceCritical": {
+            "AlarmDescription": "Critical Alarm for RDS FreeStorageSpace Metric",
+            "AlarmAction": "critical",
+            "send_ok": false,
+            "ComparisonOperator": "LessThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "FreeStorageSpace",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 100000000
+        },
+        "NetworkReceiveThroughput": {
+            "AlarmDescription": "Alarm for RDS NetworkReceiveThroughput Metric",
+            "AlarmAction": "warning",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "NetworkReceiveThroughput",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 450000000
+        },
+        "NetworkTransmitThroughput": {
+            "AlarmDescription": "Alarm for RDS NetworkTransmitThroughput Metric",
+            "AlarmAction": "warning",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "NetworkTransmitThroughput",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 450000000
+        },
+        "ReplicaLag": {
+            "AlarmDescription": "Alarm for RDS ReplicaLag Metric",
+            "AlarmAction": "critical",
+            "send_ok": false,
+            "ComparisonOperator": "GreaterThanThreshold",
+            "EvaluationPeriods": 2,
+            "MetricName": "ReplicaLag",
+            "Statistic": "Average",
+            "Namespace": "AWS/RDS",
+            "Period": 300,
+            "Threshold": 300
+        }
+    },
+    "Charts": {
+        "StatusCheckFailed": {
+            "ch_type": "metric",
+            "is_alarm": true,
+            "metric_list": ["ReplicaLag"],
+            "period": 300,
+            "view": "singleValue",
+            "stacked": false
+        },
+        "CPU": {
+            "ch_type": "metric",
+            "is_alarm": true,
+            "metric_list": ["CPUUtilization"],
+            "period": 300,
+            "view": "timeSeries",
+            "stacked": false
+        },
+        "DiskFree": {
+            "ch_type": "metric",
+            "is_alarm": true,
+            "metric_list": ["FreeStorageSpace"],
+            "period": 300,
+            "view": "timeSeries",
+            "stacked": false
+        },
+        "Network": {
+            "ch_type": "metric",
+            "is_alarm": false,
+            "avail": "['AvailabilityZone']",
+            "metric_list": [
+                ["AWS/RDS", "NetworkReceiveThroughput", "DBInstanceIdentifier"],
+                ["AWS/RDS", "NetworkTransmitThroughput", "DBInstanceIdentifier"]
+            ],
+            "period": 300,
+            "stat": "Average",
+            "stacked": true,
+            "view": "timeSeries"
+        },
+        "Disk": {
+            "ch_type": "metric",
+            "is_alarm": false,
+            "avail": "['AvailabilityZone']",
+            "metric_list": [
+                ["AWS/EC2", "ReadLatency", "DBInstanceIdentifier"],
+                ["AWS/EC2", "WriteLatency", "DBInstanceIdentifier"]
+            ],
+            "period": 300,
+            "stat": "Average",
+            "stacked": true,
+            "view": "timeSeries"
+        }
+    },
+    "TagsKey": "TagList",
+    "DiscoverTags": "list_tags_for_resource(ResourceName=",
+    "DiscoverTagsInstParm": "DBInstanceArn",
+    "FriendlyName": "Name",
+    "EnsureUniqueName": false
 }
